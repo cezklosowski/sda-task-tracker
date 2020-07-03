@@ -12,7 +12,7 @@ public class Main {
                     W przypadku błędów: do zrobienia, przyjęte, przetestowane, nie udane.                
                 
             Uwaga, pomijam w opisie w większości przypadków tworzenie setterów, getterów i konstruktorów, ale są potrzebne (trzeba je utworzyć).    
-            1. W pakiecie pl.sda.model trzymaj klasy reprezentujące model (te w których będziemy tylko trzymać dane).
+            DONE 1. W pakiecie pl.sda.model trzymaj klasy reprezentujące model (te w których będziemy tylko trzymać dane).
                Dopóki nie zostanie opisane inaczej w zadaniu wszystkie klasy twórz tam.
                Na podstawie poniższych informacji utwórz klasy:
                 a. Zadanie (Task), powinno mieć:
@@ -25,39 +25,40 @@ public class Main {
                   * priorytet (to jest enum - LOW, MEDIUM, HIGH)
                   * czas utworzenia (datę i czas)
                   * datę w której powinnien zostać rozwiązany (uwaga, to jest coś innego niż estymowany czas!)
-            2. Jak zauważyłaś/eś te dwie klasy mają wspólne dwa pola, może dałoby się coś z tym zrobić? Jakoś uprościć?
+            DONE 2. Jak zauważyłaś/eś te dwie klasy mają wspólne dwa pola, może dałoby się coś z tym zrobić? Jakoś uprościć?
             Podpowiedź wraz z sugerowaną nazwą (pisane od tyłu): )dnarrEesaB( awominona asalk
-            3. Utwórz intefrejs ErrandState z metodami:
+            !zrobiłem klasę abstrakcyjną, a nie anonimową!
+            DONE 3. Utwórz intefrejs ErrandState z metodami:
                 * ErrandState nextState()
                 * ErrandState prevState()
                 * String getMessage();
-            4. Wszystkie poniższe klasy powinny implementować ErrandState:
+            DONE 4. Wszystkie poniższe klasy powinny implementować ErrandState:
                * Klasy, będące statusami zadań (statusy błędów będą wspomniane później):
                     * wszystkie poniższe powinny mieć pole typu Task (nazwa z podpowiedzi) abyśmy mogli "powiedzieć"
                       statusowi jakiego zadania dotyczy oraz konstruktor za pomocą którego ustawimy to pole
                        a. Klasa ToDoTaskState:
-                          * Powinna zaimplementować metodę nextState():
+                          DONE * Powinna zaimplementować metodę nextState():
                                 tak aby zwracać nowy obiekt typu InProgressTaskState (do konstruktora przekaż zadanie z tego statusu) i ustawić task.setCurrentState na nowo utworzony obiekt.
-                          * Powinna zaimplementować metodę prevState():
+                          DONE * Powinna zaimplementować metodę prevState():
                                 tak aby zwracać ten sam status, bo nie da się z ToDo przejść do tyłu, a więc powinna zwracać "this"
-                          * getMessage() powinno zwracać "ToDo - <czas utworzenia zadania>"
+                          DONE * getMessage() powinno zwracać "ToDo - <czas utworzenia zadania>"
                        b. Klasa InProgressTaskState:
-                          * Powinna mieć pole przechowujące czas utworzenia obiektu(created)
-                          * Powinna zaimplementować metodę nextState():
+                          DONE * Powinna mieć pole przechowujące czas utworzenia obiektu(created)
+                          DONE * Powinna zaimplementować metodę nextState():
                                 tak aby zwracać nowy obiekt typu DoneTaskState (do konstruktora przekaż zadanie z tego statusu) i ustawić task.setCurrentState na nowo utworzony obiekt.
-                          * Powinna zaimplementować metodę prevState():
+                          DONE * Powinna zaimplementować metodę prevState():
                                 tak aby zwracać nowy obiekt typu ToDoTaskState (do konstruktora przekaż zadanie z tego statusu) i ustawić task.setCurrentState na nowo utworzony obiekt.
-                          * getMessage() powinno zwracać "In progress - <czas teraz - czas utworzenia obiektu>"
+                          DONE * getMessage() powinno zwracać "In progress - <czas teraz - czas utworzenia obiektu>"
                        c. Klasa DoneTaskState:
-                          * Powinna mieć pole przechowujące czas utworzenia obiektu(created)
-                          * Powinna zaimplementować metodę nextState():
+                          DONE * Powinna mieć pole przechowujące czas utworzenia obiektu(created)
+                          DONE * Powinna zaimplementować metodę nextState():
                                 tak aby zwracać ten sam status, bo nie da się z Done przejść do przodu, a więc powinna zwracać "this"
-                          * Powinna zaimplementować metodę prevState():
+                          DONE * Powinna zaimplementować metodę prevState():
                                 tak aby zwracać nowy obiekt typu InProgressTaskState (do konstruktora przekaż zadanie z tego statusu) i ustawić task.setCurrentState na nowo utworzony obiekt.
-                          * getMessage() powinno zwracać "Done - <estymowany czas trwania zadania> - <czas utworzenia zadania> - <czas utworzenia obiektu>"
+                          DONE * getMessage() powinno zwracać "Done - <estymowany czas trwania zadania> - <czas utworzenia zadania> - <czas utworzenia obiektu>"
                           
                Objaśnienie: w <> zawarłem informację, że należy wykonać operację, a nie wypisać ten tekst.
-            5. Spraw, aby w klasie odpowiedzialnej za błąd i klasie odpowiedzialnej za zadanie znalazło się pole ErrandState o nazwie currentState.
+            DONE 5. Spraw, aby w klasie odpowiedzialnej za błąd i klasie odpowiedzialnej za zadanie znalazło się pole ErrandState o nazwie currentState.
             6. Testujemy. W mainie (tutaj):
                a. Stwórz obiekt Zadania i przypisz do zmiennej
                b. Nadaj mu tytuł, przypisz czas utworzenia i estymowany czas.
@@ -100,9 +101,8 @@ public class Main {
             11. Utwórz w menu opcję "Dodaj błąd" analogicznie jak w 9.a, zauważ, że nie musisz
                 implementować 9b ani 9c osobno dla błędu, gdyż użyliśmy interfejsów :)                                                                                 
 
-
-
-
          */
+
+
     }
 }
