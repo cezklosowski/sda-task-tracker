@@ -1,8 +1,6 @@
 package pl.sda.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 
 public class InProgressTaskState implements ErrandState {

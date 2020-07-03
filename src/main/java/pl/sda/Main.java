@@ -1,9 +1,6 @@
 package pl.sda;
 
-import pl.sda.model.BaseErrand;
-import pl.sda.model.Priority;
-import pl.sda.model.Task;
-import pl.sda.model.ToDoTaskState;
+import pl.sda.model.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -106,10 +103,10 @@ public class Main {
                        indeks zadania (i z pętli for)
                        jego tytuł
                        efekt wywołania getCurrentState().getMessage()
-            10. Utwórz klasy będące statusami błędów podobnie jak było to opisane w 4.
+            DONE 10. Utwórz klasy będące statusami błędów podobnie jak było to opisane w 4.
                 Jeśli przy którejkolwiek zmianie statusu został przekroczony czas na zrobienie zadania
                 zmień status na FailedBugState (nie udało się go zrobić).
-            11. Utwórz w menu opcję "Dodaj błąd" analogicznie jak w 9.a, zauważ, że nie musisz
+            DONE 11. Utwórz w menu opcję "Dodaj błąd" analogicznie jak w 9.a, zauważ, że nie musisz
                 implementować 9b ani 9c osobno dla błędu, gdyż użyliśmy interfejsów :)                                                                                 
 
          */
@@ -149,6 +146,7 @@ public class Main {
             System.out.println("2. Przesuń zadanie do przodu");
             System.out.println("3. Przesuń zadanie do tyłu");
             System.out.println("4. Wyświetl listę zadań");
+            System.out.println("5. Dodaj błąd");
             System.out.println("q. Wyjście");
 
             option = input.nextLine();
@@ -213,6 +211,40 @@ public class Main {
                     for (int i = 0; i < baseErrandList.size(); i++) {
                         System.out.println(i + ". " + baseErrandList.get(i).getTitle() + " " + baseErrandList.get(i).getCurrentState().getMessage());
                     }
+
+                    break;
+                }
+                case "5": {
+
+                    System.out.println("Podaj tytuł błędu");
+                    String title = input.nextLine();
+                    System.out.println("Podaj priorytet błędu (niski, średni, wysoki)");
+                    String priorityString = input.nextLine();
+                    Priority priority = Priority.HIGH;
+                    boolean parser = true;
+                    if (priorityString.equalsIgnoreCase("niski")) {
+                        priority = Priority.LOW;
+                    } else if (priorityString.equalsIgnoreCase("średni")) {
+                        priority = Priority.MEDIUM;
+                    } else if (priorityString.equalsIgnoreCase("wysoki")) {
+                        priority = Priority.HIGH;
+                    } else {
+                        System.out.println("Wprowadzono nieprawidłowy priorytet błędu");
+                        parser = false;
+                    }
+                    System.out.println("Podaj ostateczny czas rozwiązania błędu (rok, miesiąc, dzień, godzina, minuta)");
+                    String terminationTimeString = input.nextLine();
+                    String[] terminationTimeArray = terminationTimeString.split(",");
+                    int[] terminationTimeInts = new int[terminationTimeArray.length];
+                    for (int i = 0; i < terminationTimeArray.length; i++) {
+                        terminationTimeInts[i] = Integer.parseInt(terminationTimeArray[i]);
+                    }
+                    if (parser) {
+                        Bug bug = new Bug(title, priority, LocalDateTime.now(), LocalDateTime.of(terminationTimeInts[0], terminationTimeInts[1], terminationTimeInts[2], terminationTimeInts[3], terminationTimeInts[4]));
+                        bug.setCurrentState(new ToDoBugState(bug, LocalDateTime.now()));
+                        baseErrandList.add(bug);
+                    }
+
 
                     break;
                 }
