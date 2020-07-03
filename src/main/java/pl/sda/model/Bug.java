@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 
 public class Bug extends BaseErrand{
     private LocalDateTime terminationTime;
-    private ErrandState currentState;
 
 
+    public Bug(String title, Priority priority, LocalDateTime creationTime) {
+        super(title, priority, creationTime);
+    }
 
     public LocalDateTime getTerminationTime() {
         return terminationTime;
@@ -17,10 +19,10 @@ public class Bug extends BaseErrand{
     }
 
     public ErrandState getCurrentState() {
-        return currentState;
+        return super.getCurrentState();
     }
 
     public void setCurrentState(ErrandState currentState) {
-        this.currentState = currentState;
+        super.setCurrentState(currentState);
     }
 }

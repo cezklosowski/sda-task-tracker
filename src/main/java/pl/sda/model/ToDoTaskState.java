@@ -4,16 +4,16 @@ import java.time.LocalDateTime;
 
 public class ToDoTaskState implements ErrandState {
     private Task baseErrand;
-    private LocalDateTime created;
+    private LocalDateTime creationTaskTime;
 
-    public ToDoTaskState(Task baseErrand, LocalDateTime created) {
+    public ToDoTaskState(Task baseErrand, LocalDateTime creationTaskTime) {
         this.baseErrand = baseErrand;
-        this. created = created;
+        this.creationTaskTime = LocalDateTime.now();
     }
 
     @Override
     public ErrandState nextState() {
-        InProgressTaskState newState = new InProgressTaskState(baseErrand, LocalDateTime.now());
+        InProgressTaskState newState = new InProgressTaskState(baseErrand, creationTaskTime);
         baseErrand.setCurrentState(newState);
         return newState;
     }

@@ -1,7 +1,18 @@
 package pl.sda;
 
+import pl.sda.model.BaseErrand;
+import pl.sda.model.Priority;
+import pl.sda.model.Task;
+import pl.sda.model.ToDoTaskState;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         /*
             Narzędzie do obsługi i śledzenia zadań/błędów.
             Twoim zadaniem jest przygotowanie narzędzia pozwalającego śledzić/modyfikować/tworzyć zadania lub błędy (np. w projekcie IT)
@@ -59,19 +70,19 @@ public class Main {
                           
                Objaśnienie: w <> zawarłem informację, że należy wykonać operację, a nie wypisać ten tekst.
             DONE 5. Spraw, aby w klasie odpowiedzialnej za błąd i klasie odpowiedzialnej za zadanie znalazło się pole ErrandState o nazwie currentState.
-            6. Testujemy. W mainie (tutaj):
-               a. Stwórz obiekt Zadania i przypisz do zmiennej
-               b. Nadaj mu tytuł, przypisz czas utworzenia i estymowany czas.
-               c. Do obiektu zadania przypisz status (w polu currentState) new ToDoTaskState()
-               d. Pobierz wiadomość task.getCurrentState().getMessage(), sprawdź czy pojawiła się oczekiwana wiadomość 
+            DONE 6. Testujemy. W mainie (tutaj):
+               DONE a. Stwórz obiekt Zadania i przypisz do zmiennej
+               DONE b. Nadaj mu tytuł, przypisz czas utworzenia i estymowany czas.
+               DONE c. Do obiektu zadania przypisz status (w polu currentState) new ToDoTaskState()
+               DONE d. Pobierz wiadomość task.getCurrentState().getMessage(), sprawdź czy pojawiła się oczekiwana wiadomość
                "ToDo - <czas utworzenia zadania>"
-               e. Z obiektu pobierz aktualny status i wywołaj na nim nextState(), a więc task.getCurrentState().nextState()
-               d. Pobierz wiadomość task.getCurrentState().getMessage(), sprawdź czy pojawiła się oczekiwana wiadomość 
+               DONE e. Z obiektu pobierz aktualny status i wywołaj na nim nextState(), a więc task.getCurrentState().nextState()
+               DONE d. Pobierz wiadomość task.getCurrentState().getMessage(), sprawdź czy pojawiła się oczekiwana wiadomość
                "In progress - <czas teraz - czas utworzenia obiektu>"
-               f. Z obiektu pobierz aktualny status i wywołaj na nim nextState(), a więc task.getCurrentState().nextState()  
-               g. Pobierz wiadomość task.getCurrentState().getMessage(), sprawdź czy pojawiła się oczekiwana wiadomość 
+               DONE f. Z obiektu pobierz aktualny status i wywołaj na nim nextState(), a więc task.getCurrentState().nextState()
+               DONE g. Pobierz wiadomość task.getCurrentState().getMessage(), sprawdź czy pojawiła się oczekiwana wiadomość
                "Done - <estymowany czas trwania zadania> - <czas utworzenia zadania> - <czas utworzenia obiektu>"
-               f. Spróbuj przejść jeszcze dalej i sprawdź czy zostanie na tym samym statusie
+               DONE f. Spróbuj przejść jeszcze dalej i sprawdź czy zostanie na tym samym statusie
                task.getCurrentState().nextState(), i walidacja czy task.getCurrentState().getMessage() nadal zwraca Done                                                                                     
             7. Zauważ, że moglibyśmy dodać kolejny status przez modyfikację np. InProgressTaskState tak, aby nextState() zwracało TestingTaskState
             Albo moglibyśmy utworzyć zupełnie inną niezależną ścieżkę postępu i jedne zadania miałyby statusy: 
@@ -79,19 +90,19 @@ public class Main {
             a inne np.: 
             Created -> Assigned -> Removed
             
-            8. Utwórz listę (ewentualnie tablicę) typu BaseErrand
+            DONE 8. Utwórz listę (ewentualnie tablicę) typu BaseErrand
             9. Utwórz proste menu konsolowe z opcjami: 
-                a. Dodaj zadanie
-                   * Pytamy użytkownika o tytuł, priorytet i estymowany czas
-                   * Tworzymy nowe zadanie, ustawiamy tytuł, priorytet i estymowany czas. currentState ustaw na new TodoTaskState(task) - pierwszy status
-                   * Utworzone zadanie dodajemy do listy utworzonej w 8.
-                b. Przesuń zadanie do przodu
-                   * Zapytaj użytkownika o które z kolei zadanie chodzi (numer) 
-                   * Pobierz z listy zadane przez użytkownika zadanie i wywołaj na nim .getCurrentState().nextState()
-                c. Przesuń zadanie do tyłu
-                   * Analogicznie jak w 9b, tylko zamiast wywoływać nextState() wywołaj prevState()
-                d. Wyświetl listę (wszystko co w niej jest)
-                   * Przeiteruj przez całą listę wyświetlając:
+                DONE a. Dodaj zadanie
+                   DONE * Pytamy użytkownika o tytuł, priorytet i estymowany czas
+                   DONE * Tworzymy nowe zadanie, ustawiamy tytuł, priorytet i estymowany czas. currentState ustaw na new TodoTaskState(task) - pierwszy status
+                   DONE * Utworzone zadanie dodajemy do listy utworzonej w 8.
+                DONE b. Przesuń zadanie do przodu
+                   DONE * Zapytaj użytkownika o które z kolei zadanie chodzi (numer)
+                   DONE * Pobierz z listy zadane przez użytkownika zadanie i wywołaj na nim .getCurrentState().nextState()
+                DONE c. Przesuń zadanie do tyłu
+                   DONE * Analogicznie jak w 9b, tylko zamiast wywoływać nextState() wywołaj prevState()
+                DONE d. Wyświetl listę (wszystko co w niej jest)
+                   DONE * Przeiteruj przez całą listę wyświetlając:
                        indeks zadania (i z pętli for)
                        jego tytuł
                        efekt wywołania getCurrentState().getMessage()
@@ -102,6 +113,116 @@ public class Main {
                 implementować 9b ani 9c osobno dla błędu, gdyż użyliśmy interfejsów :)                                                                                 
 
          */
+
+
+
+        /*
+
+        // ZADANIE 6
+
+        Task testTask = new Task("Fix function2", Priority.HIGH, LocalDateTime.now(), Duration.ofSeconds(20));
+        testTask.setCurrentState(new ToDoTaskState(testTask, LocalDateTime.now()));
+        System.out.println(testTask.getCurrentState().getMessage());
+        Thread.sleep(3000);
+        testTask.getCurrentState().nextState();
+        System.out.println(testTask.getCurrentState().getMessage());
+        Thread.sleep(2000);
+        testTask.getCurrentState().nextState();
+        System.out.println(testTask.getCurrentState().getMessage());
+        Thread.sleep(1000);
+        testTask.getCurrentState().nextState();
+        System.out.println(testTask.getCurrentState().getMessage());
+
+         */
+
+        // ZADANIE 8
+        List<BaseErrand> baseErrandList = new ArrayList<>();
+
+        // ZADANIE 9
+
+        Scanner input = new Scanner(System.in);
+        String option = "";
+
+        do {
+            System.out.println("MENU. Wybierz funkcję (1, 2, 3, 4, q): ");
+            System.out.println("1. Dodaj zadanie");
+            System.out.println("2. Przesuń zadanie do przodu");
+            System.out.println("3. Przesuń zadanie do tyłu");
+            System.out.println("4. Wyświetl listę zadań");
+            System.out.println("q. Wyjście");
+
+            option = input.nextLine();
+
+
+            switch (option) {
+                case "1": {
+
+                    System.out.println("Podaj tytuł zadania");
+                    String title = input.nextLine();
+                    System.out.println("Podaj priorytet zadania (niski, średni, wysoki)");
+                    String priorityString = input.nextLine();
+                    Priority priority = Priority.HIGH;
+                    boolean parser = true;
+                    if (priorityString.equalsIgnoreCase("niski")) {
+                        priority = Priority.LOW;
+                    } else if (priorityString.equalsIgnoreCase("średni")) {
+                        priority = Priority.MEDIUM;
+                    } else if (priorityString.equalsIgnoreCase("wysoki")) {
+                        priority = Priority.HIGH;
+                    } else {
+                        System.out.println("Wprowadzono błędny priorytet zadania");
+                        parser = false;
+                    }
+                    System.out.println("Podaj estymowany czas wykonania zadania (w sekundach)");
+                    long duration = Long.parseLong(input.nextLine());
+                    if (parser) {
+                        Task task = new Task(title, priority, LocalDateTime.now(), Duration.ofSeconds(duration));
+                        task.setCurrentState(new ToDoTaskState(task, LocalDateTime.now()));
+                        baseErrandList.add(task);
+                    }
+
+
+                    break;
+                }
+                case "2": {
+
+                    System.out.println("Podaj numer zadania, które chcesz przesunąć do przodu. ");
+                    int errandNumber = Integer.parseInt(input.nextLine());
+                    if (errandNumber < 0 || errandNumber > baseErrandList.size()) {
+                        System.out.println("Nie ma zadania o podanych numerze");
+                    } else {
+                        baseErrandList.get(errandNumber).getCurrentState().nextState();
+                    }
+
+                    break;
+                }
+                case "3": {
+
+                    System.out.println("Podaj numer zadania, które chcesz przesunąć do tyłu. ");
+                    int errandNumber = Integer.parseInt(input.nextLine());
+                    if (errandNumber < 0 || errandNumber > baseErrandList.size()) {
+                        System.out.println("Nie ma zadania o podanych numerze");
+                    } else {
+                        baseErrandList.get(errandNumber).getCurrentState().prevState();
+                    }
+
+                    break;
+                }
+                case "4": {
+
+                    for (int i = 0; i < baseErrandList.size(); i++) {
+                        System.out.println(i + ". " + baseErrandList.get(i).getTitle() + " " + baseErrandList.get(i).getCurrentState().getMessage());
+                    }
+
+                    break;
+                }
+                case "q": {
+
+                    break;
+                }
+
+            }
+        } while (!option.equalsIgnoreCase("q"));
 
 
     }

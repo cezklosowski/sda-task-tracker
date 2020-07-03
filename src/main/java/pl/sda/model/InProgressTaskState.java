@@ -1,14 +1,17 @@
 package pl.sda.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 
 public class InProgressTaskState implements ErrandState {
-    private LocalDateTime created;
+    private LocalDateTime creationTaskTime;
     private Task baseErrand;
 
-    public InProgressTaskState(Task baseErrand, LocalDateTime created) {
+    public InProgressTaskState(Task baseErrand, LocalDateTime creationTaskTime) {
         this.baseErrand = baseErrand;
-        this.created = created;
+        this.creationTaskTime = creationTaskTime;
     }
 
     @Override
@@ -27,6 +30,6 @@ public class InProgressTaskState implements ErrandState {
 
     @Override
     public String getMessage() {
-        return "In progress - " + LocalDateTime.now() + " - " + created;
+        return "In progress - " + creationTaskTime.until(LocalDateTime.now(),ChronoUnit.SECONDS) + "s";
     }
 }

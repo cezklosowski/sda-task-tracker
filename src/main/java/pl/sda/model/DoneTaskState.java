@@ -1,14 +1,15 @@
 package pl.sda.model;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class DoneTaskState implements ErrandState {
-    private LocalDateTime created;
+    private LocalDateTime creationTaskTime;
     private Task baseErrand;
 
-    public DoneTaskState(Task baseErrand, LocalDateTime created) {
+    public DoneTaskState(Task baseErrand, LocalDateTime creationTaskTime) {
         this.baseErrand = baseErrand;
-        this.created = created;
+        this.creationTaskTime = creationTaskTime;
     }
 
     @Override
@@ -25,6 +26,8 @@ public class DoneTaskState implements ErrandState {
 
     @Override
     public String getMessage() {
-        return "Done - " + baseErrand.getDuration() + " - " + baseErrand.getCreationTime() + " - " + created;
+        Long timeFromCreationTaskToCreationTastState = baseErrand.getCreationTime().until(creationTaskTime, ChronoUnit.SECONDS);
+        return "Done - " + (baseErrand.getDuration().getSeconds() - baseErrand.getCreationTime().until(creationTaskTime, ChronoUnit.SECONDS)) + "s";
+
     }
 }
