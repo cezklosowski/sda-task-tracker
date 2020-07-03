@@ -155,31 +155,7 @@ public class Main {
             switch (option) {
                 case "1": {
 
-                    System.out.println("Podaj tytuł zadania");
-                    String title = input.nextLine();
-                    System.out.println("Podaj priorytet zadania (niski, średni, wysoki)");
-                    String priorityString = input.nextLine();
-                    Priority priority = Priority.HIGH;
-                    boolean parser = true;
-                    if (priorityString.equalsIgnoreCase("niski")) {
-                        priority = Priority.LOW;
-                    } else if (priorityString.equalsIgnoreCase("średni")) {
-                        priority = Priority.MEDIUM;
-                    } else if (priorityString.equalsIgnoreCase("wysoki")) {
-                        priority = Priority.HIGH;
-                    } else {
-                        System.out.println("Wprowadzono błędny priorytet zadania");
-                        parser = false;
-                    }
-                    System.out.println("Podaj estymowany czas wykonania zadania (w sekundach)");
-                    long duration = Long.parseLong(input.nextLine());
-                    if (parser) {
-                        Task task = new Task(title, priority, LocalDateTime.now(), Duration.ofSeconds(duration));
-                        task.setCurrentState(new ToDoTaskState(task, LocalDateTime.now()));
-                        baseErrandList.add(task);
-                    }
-
-
+                    newTask(baseErrandList);
                     break;
                 }
                 case "2": {
@@ -216,46 +192,75 @@ public class Main {
                 }
                 case "5": {
 
-                    System.out.println("Podaj tytuł błędu");
-                    String title = input.nextLine();
-                    System.out.println("Podaj priorytet błędu (niski, średni, wysoki)");
-                    String priorityString = input.nextLine();
-                    Priority priority = Priority.HIGH;
-                    boolean parser = true;
-                    if (priorityString.equalsIgnoreCase("niski")) {
-                        priority = Priority.LOW;
-                    } else if (priorityString.equalsIgnoreCase("średni")) {
-                        priority = Priority.MEDIUM;
-                    } else if (priorityString.equalsIgnoreCase("wysoki")) {
-                        priority = Priority.HIGH;
-                    } else {
-                        System.out.println("Wprowadzono nieprawidłowy priorytet błędu");
-                        parser = false;
-                    }
-                    System.out.println("Podaj ostateczny czas rozwiązania błędu (rok, miesiąc, dzień, godzina, minuta)");
-                    String terminationTimeString = input.nextLine();
-                    String[] terminationTimeArray = terminationTimeString.split(",");
-                    int[] terminationTimeInts = new int[terminationTimeArray.length];
-                    for (int i = 0; i < terminationTimeArray.length; i++) {
-                        terminationTimeInts[i] = Integer.parseInt(terminationTimeArray[i]);
-                    }
-                    if (parser) {
-                        Bug bug = new Bug(title, priority, LocalDateTime.now(), LocalDateTime.of(terminationTimeInts[0], terminationTimeInts[1], terminationTimeInts[2], terminationTimeInts[3], terminationTimeInts[4]));
-                        bug.setCurrentState(new ToDoBugState(bug, LocalDateTime.now()));
-                        baseErrandList.add(bug);
-                    }
-
-
+                    newBug(baseErrandList);
                     break;
                 }
-                case "q": {
-
-                    break;
-                }
-
             }
         } while (!option.equalsIgnoreCase("q"));
 
+    }
 
+    public static void newTask(List<BaseErrand> baseErrandList) {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Podaj tytuł zadania");
+        String title = input.nextLine();
+        System.out.println("Podaj priorytet zadania (niski, średni, wysoki)");
+        String priorityString = input.nextLine();
+        Priority priority = Priority.HIGH;
+        boolean parser = true;
+        if (priorityString.equalsIgnoreCase("niski")) {
+            priority = Priority.LOW;
+        } else if (priorityString.equalsIgnoreCase("średni")) {
+            priority = Priority.MEDIUM;
+        } else if (priorityString.equalsIgnoreCase("wysoki")) {
+            priority = Priority.HIGH;
+        } else {
+            System.out.println("Wprowadzono błędny priorytet zadania");
+            parser = false;
+        }
+        System.out.println("Podaj estymowany czas wykonania zadania (w sekundach)");
+        long duration = Long.parseLong(input.nextLine());
+        if (parser) {
+            Task task = new Task(title, priority, LocalDateTime.now(), Duration.ofSeconds(duration));
+            task.setCurrentState(new ToDoTaskState(task, LocalDateTime.now()));
+            baseErrandList.add(task);
+        }
+
+    }
+
+    public static void newBug(List<BaseErrand> baseErrandList){
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Podaj tytuł błędu");
+        String title = input.nextLine();
+        System.out.println("Podaj priorytet błędu (niski, średni, wysoki)");
+        String priorityString = input.nextLine();
+        Priority priority = Priority.HIGH;
+        boolean parser = true;
+        if (priorityString.equalsIgnoreCase("niski")) {
+            priority = Priority.LOW;
+        } else if (priorityString.equalsIgnoreCase("średni")) {
+            priority = Priority.MEDIUM;
+        } else if (priorityString.equalsIgnoreCase("wysoki")) {
+            priority = Priority.HIGH;
+        } else {
+            System.out.println("Wprowadzono nieprawidłowy priorytet błędu");
+            parser = false;
+        }
+        System.out.println("Podaj ostateczny czas rozwiązania błędu (rok, miesiąc, dzień, godzina, minuta)");
+        String terminationTimeString = input.nextLine();
+        String[] terminationTimeArray = terminationTimeString.split(",");
+        int[] terminationTimeInts = new int[terminationTimeArray.length];
+        for (int i = 0; i < terminationTimeArray.length; i++) {
+            terminationTimeInts[i] = Integer.parseInt(terminationTimeArray[i]);
+        }
+        if (parser) {
+            Bug bug = new Bug(title, priority, LocalDateTime.now(), LocalDateTime.of(terminationTimeInts[0], terminationTimeInts[1], terminationTimeInts[2], terminationTimeInts[3], terminationTimeInts[4]));
+            bug.setCurrentState(new ToDoBugState(bug, LocalDateTime.now()));
+            baseErrandList.add(bug);
+        }
     }
 }
